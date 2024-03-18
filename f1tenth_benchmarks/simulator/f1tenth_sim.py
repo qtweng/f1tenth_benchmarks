@@ -134,13 +134,12 @@ class F1TenthSimBase:
     def reset(self):
         if self.params.use_random_starts and self.lap_number > -1:
             self.starting_progress = self.random_start_rng.random()
-            start_pose = self.centre_line.calculate_pose(self.starting_progress)
             # start_pose = self.centre_line.calculate_pose(self.start_pose_rands[self.lap_number])
             # self.starting_progress = self.centre_line.calculate_progress_percent(start_pose)
         else:
             self.starting_progress = 0
-            start_pose = np.zeros(3)
-
+            
+        start_pose = self.centre_line.calculate_pose(self.starting_progress)
         self.current_state = self.dynamics_simulator.reset(start_pose)
         self.current_time = 0.0
         action = np.zeros(2)
